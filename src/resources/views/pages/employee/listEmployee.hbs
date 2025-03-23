@@ -1,0 +1,151 @@
+{{!-- <div class = "flex flex-col dark:bg-white px-5 pb-5 pt-1 rounded-lg">
+    <div class=" container mx-auto py-4">
+        <form class=" flex group relative">
+            <svg width="20" height="20" fill="currentColor" class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-gray-500" aria-hidden="true">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+            </svg>
+            <input class="focus:ring-2 focus:ring-gray-500 focus:outline-none appearance-none w-10/12 text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2  pl-10 pr-4 ring-1 ring-slate-200 shadow-sm truncate" type="text" aria-label="Filter projects" placeholder="Search ...">
+            <button class="bg-gray-200 ml-4 text-green-500 rounded w-2/12 items-center hover:bg-gray-300">
+                <i class="fa-solid fa-add"></i>
+            </button>
+        </form>
+    </div>
+    <div class="relative shadow-md sm:rounded-lg dark:bg-white h-100" style=" overflow-y: auto;">
+        <table class="w-full text-left">
+            <thead class="text-xm text-gray-700  uppercase bg-gray-200 dark:bg-gray-700 ">
+                <tr>
+                    <th scope="col" class="p-4">
+                        <div class="flex items-center">
+                            <input id="select_all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                        </div>
+                    </th>
+                    <th scope="col" class="py-3">
+                        ID
+                    </th>
+                    <th scope="col" class="py-3">
+                        Name
+                    </th>
+                    <th scope="col" class="py-3">
+                        Email
+                    </th>
+                    <th scope="col" class="py-3">
+                        Phone
+                    </th>
+                    <th scope="col" class="py-3">
+                        Hire Date
+                    </th>
+                    <th scope="col" class="py-3">
+                        Status
+                    </th>
+                    <th scope="col" class=" text-center py-3">
+                        Avatar
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data}}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td><input type="checkbox"></td>
+                        <td>{{sum @index 1}}</td>
+                        <td>{{this.employee_name}}</td>
+                        <td>{{this.employee_phone}}</td>
+                        <td>{{this.employee_email}}</td>
+                        <td>{{this.hire_date}}</td>
+                        <td>{{this.account_status}}</td>
+                        <td><img class=" object h-48 w-40" src={{this.profile_picture}}></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div> --}}
+<table class="min-w-full bg-white border border-gray-300 rounded-md">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th scope="col" class="p-4">
+                        <div class="flex items-center">
+                            <input id="select_all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded  dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                        </div>
+                    </th>
+                    <th class="py-2 px-4 border-b">No</th>
+                    <th class="py-2 px-4 border-b">Image</th>
+                    <th class="py-2 px-4 border-b">Name</th>
+                    <th class="py-2 px-4 border-b">Phone</th>
+                    <th class="py-2 px-4 border-b">Email</th>
+                    <th class="py-2 px-4 border-b">Status</th>
+                    <th class="py-2 px-4 border-b">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- User Row (Replace this block for each user) -->
+                {{#each data}}
+                    <tr>
+                        <td  class="p-4">
+                            <input type="checkbox"class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded  dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        </td>
+                        <td>{{sum @index 1}}</td>
+                        <td class="py-2 px-4 border-b">
+                            <img src={{this.profile_picture}} alt="User Image" class="w-12 h-12 object-cover rounded-md">
+                        </td>
+                        <td class="py-2 px-4 border-b">{{this.username}}</td>
+                        <td class="py-2 px-4 border-b">{{this.phonenumber}}</td>
+                        <td class="py-2 px-4 border-b">{{this.email}}</td>
+                        <td class="py-2 px-4 border-b text-green-500" id='{{this._id}}'>{{this.status}}</td>
+                        <td class="py-2 px-4 border-b">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded-md lock" data-id="{{this._id}}">Lock</button>
+                            <button class="bg-red-500 text-white ml-2 px-4 py-2 rounded-md unlock" data-id="{{this._id}}">Unlock</button>
+                        </td>
+                    </tr>
+                {{/each}}
+                <!-- End User Row -->
+
+                <!-- Repeat the User Row block for each user -->
+
+            </tbody>
+        </table>
+<script>
+document.getElementById('select_all').addEventListener('change', function() {
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+for (const checkbox of checkboxes) {
+    checkbox.checked = this.checked;
+    }
+});
+    const lockButtons = document.querySelectorAll('.lock');
+    const unlockButtons = document.querySelectorAll('.unlock');
+
+    lockButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const userId = button.getAttribute('data-id');
+            document.getElementById(userId).innerHTML="inactive"
+            sendLockRequest(userId);
+        });
+    });
+
+    unlockButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const userId = button.getAttribute('data-id');
+            document.getElementById(userId).innerHTML="active"
+            sendLockRequest(userId);
+        });
+    });
+
+    // Function to send a lock request
+    function sendLockRequest(userId) {
+        fetch(`/employee/delete/${userId}`, {
+            method: 'POST', 
+        })
+        .then(response => {
+            if (response.ok) {
+
+            } else {
+            }
+        })
+        .catch(error => {
+        });
+    }
+
+  
+</script>

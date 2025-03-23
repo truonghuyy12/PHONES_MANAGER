@@ -1,0 +1,60 @@
+<!-- Confirmation Page -->
+<div class="max-w-md mx-auto bg-white rounded p-8 shadow-md">
+    <h1 class="text-2xl font-semibold mb-6">Confirm Account</h1>
+
+    <!-- Confirmation Form -->
+    <form id="confirmationForm" class="space-y-4" method="post">
+        <!-- Hidden Token Field -->
+        <input type="hidden" id="confirmationToken" name="confirmationToken" value='{{token}}'>
+
+        <!-- Password -->
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-600">Password</label>
+            <input type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md" required>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+            <button type="button" onclick="confirmAccount()" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Confirm Account</button>
+        </div>
+    </form>
+
+    <!-- Result Message -->
+    <div id="result" class="mt-4"></div>
+</div>
+
+<script>
+    async function confirmAccount() {
+        const password = document.getElementById('password').value;
+        const confirmationToken = document.getElementById('confirmationToken').value;
+
+        try {
+            const response = await fetch('/login/confirm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    password: password,
+                    confirmationToken: confirmationToken,
+                }),
+            });
+
+            const result = await response.json();
+
+            // Update the result message on the page
+            document.getElementById('result').innerText = result.message;
+
+            // Optional: Redirect to login page after successful confirmation
+            if (result.success) {
+                // Redirect to your login page
+                window.location.href = '/login';
+            }
+        } catch (error) {
+            console.error('Error confirming account:', error);
+
+            // Display error message on the page
+            document.getElementById('result').innerText = 'Error confirming account. Please try again later.';
+        }
+    }
+</script>

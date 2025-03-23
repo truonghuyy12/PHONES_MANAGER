@@ -1,0 +1,22 @@
+<body>
+    <h1>Danh sách hóa đơn</h1>
+    <br>
+
+    {{#each data}}
+    <div
+        style="background-color: azure;padding: 20px;margin-bottom: 20px;border-radius: 10px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <p><strong> {{this.customer_name}} </strong></p>
+        <p><strong>Số điện thoại:</strong> {{thiscustomer_phone}}</p>
+        <p><strong>Các sản phẩm đã mua:</strong></p>
+        <ul>
+            {{#each customer_bill}}
+            <li>Product Name: {{this.product_name}}, Series: {{this.series}}, Retail Price: {{this.retailPrice}},
+                Quantity: {{this.quantity}}</li>
+            {{/each}}
+        </ul>
+        <p><strong>Tống tiền:</strong> {{this.total}} $</p>
+        <p><strong>Created At:</strong> {{this.createdAt}}</p>
+    </div>
+    <br>
+    {{/each}}
+</body>

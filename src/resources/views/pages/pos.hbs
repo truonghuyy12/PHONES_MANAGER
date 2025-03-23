@@ -1,0 +1,333 @@
+<script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
+<div class="relative grid grid-cols-3 gap-2 w-full h-full">
+    {{!-- Products --}}
+    <div class="col-span-2 bg-white h-full rounded-lg p-2">
+        <br>
+        {{!-- Items --}}
+        <div class="overflow-scroll ">
+            <div class="grid grid-cols-4 gap-3 ">
+                {{#each data}}
+                <div onclick="addItem(this)"
+                    class="relative flex justify-center text-left cursor-pointer p-2 border rounded-lg">
+                    <div>
+                        <img src="{{this.link_image}}" alt="image" style="height: 220px; object-fit: cover;"
+                            id="link_image" class="link_image" />
+                        <h2 class="font-semibold text-xl product_name" id="product_name">{{this.product_name}}</h2>
+                        <p class="text-xs font-semibold" style="display: inline;">Price:
+                        <p class="text-xs retail_price money" style="display: inline;" id="retail_price">
+                            {{this.retail_price}}</p>
+                        <br>
+                        <p class="text-xs font-semibold " style="display: inline;">Trong kho:
+                        <p class="text-xs inventory_quantity" style="display: inline;"> {{this.inventory_quantity}}
+                        </p>
+                        </p>
+                        <p class="text-xs font-semibold " style="display: inline;">Mã:
+                        <p class="text-xs series" style="display: inline;"> {{this.series}}
+                        </p>
+                        </p>
+                    </div>
+                    <div class="absolute w-full h-full opacity-30 top-0 hover:bg-gray-400 rounded-lg">
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+
+    {{!-- Order list --}}
+    <div class="bg-white h-1/3 rounded-lg p-3">
+        <div class="h-4/5 flex flex-col border-b-2 mb-2">
+            <h1 class="font-bold text-xl">List Order</h1>
+            <div class="my-2 pb-3 border-b-2 flex justify-between">
+                <input class="w-2/3 h-10 rounded-md px-2" type="text" name="sdt" id="sdt" style="border: 1px solid black;" placeholder="Nhập số điện thoại">
+
+
+                <div class="flex gap-2 w-1/3 h-10 ml-1.5 rounded-md">
+                    {{!-- remove order --}}
+                    <button type="button" id="searchsdt" style="border: 2px solid black;"
+                        class="bg-blue-300 text-500 py-2 px-4 rounded flex items-center hover:bg-blue-500 hover:text-white">Search
+                        SĐT</button>
+                </div>
+            </div>
+
+            {{!-- List Items --}}
+            <div class="flex-1 mt-2 overflow-scroll">
+                <div id="customername"></div>
+                {{!-- item --}}
+                <div id="item"></div>
+            </div>
+        </div>
+
+
+        {{!-- Option pay --}}
+        <div class="h-1/5 flex flex-col">
+            <div>
+                {{!-- Price --}}
+                <div>
+                    <div class="flex justify-between">
+                        <span class="font-semibold justify-left">Tiền đã nhận</span>
+                        <input class="border-2 rounded-md w-3/5 px-2 border-black" type="number" name="" id="tiennhan">
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between">
+                        <span class="font-semibold">Số tiền cần trả</span>
+                        <span id="total" class="money">0$</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between">
+                        <span class="font-semibold">Tiền thối</span>
+                        <span id="tienthoi" class="money">0$</span>
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button
+                        class="bg-blue-300 justify-between w-3/5 text-black font-bold rounded-md border-b-4 border-blue-500 hover:border-blue-600 hover:bg-blue-500 hover:text-white shadow-2xl py-2 px-6 inline-flex items-center "
+                        id="payButton">
+                        <div class="flex w-full items-center justify-center">
+                            <span class="mr-2">Thanh toán
+                            <i class="fa-regular fa-money-bill-1"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    let itemlist = [];
+
+    function updateQuantity(input) {
+        var value = parseFloat(input.value);
+        var min = parseFloat(input.min);
+        var max = parseFloat(input.max);
+        if (value < min) {
+            input.value = input.min; // Thay đổi giá trị thành giá trị min nếu nhỏ hơn
+        } else if (value > max) {
+            input.value = input.max; // Thay đổi giá trị thành giá trị max nếu lớn hơn
+        }
+        const series = input.closest('.relative').querySelector('.series').innerHTML;
+        const quantity = parseInt(input.value);
+
+        console.log(series)
+
+        // Tìm và cập nhật số lượng cho series trong itemlist
+        const existingItem = itemlist.find(item => item.series === series);
+
+        if (existingItem) {
+            existingItem.quantity = quantity;
+        }
+
+
+        const totalElement = document.getElementById('total');
+        totalElement.textContent = calculateTotalPrice() + '$'
+    }
+
+    function calculateTotalPrice() {
+        let totalPrice = 0;
+
+        for (let i = 0; i < itemlist.length; i++) {
+            const item = itemlist[i];
+            const retailPrice = parseInt(item.retailPrice.trim());
+            const quantity = item.quantity;
+            const itemTotalPrice = retailPrice * quantity;
+            totalPrice += itemTotalPrice;
+        }
+
+        return totalPrice;
+    }
+
+    document.getElementById("tiennhan").addEventListener("input", calculateTienthoi);
+
+    // Hàm tính tiền thối
+    function calculateTienthoi() {
+        const tiennhanInput = document.getElementById("tiennhan");
+        const tienthoiSpan = document.getElementById("tienthoi")
+
+        const tiennhan = parseFloat(tiennhanInput.value)
+        const tientra = calculateTotalPrice()
+        const tienthoi = tiennhan - tientra;
+
+        // Hiển thị tiền thối
+        tienthoiSpan.textContent = `${tienthoi}$`;
+    }
+
+
+    function addItem(element) {
+        const series = element.querySelector('.series').innerHTML;
+        console.log(series)
+        if (!itemlist.find(item => item.series === series)) {
+            const productName = element.querySelector('.product_name').innerHTML;
+            const linkImg = element.querySelector('.link_image').getAttribute('src');
+            const retailPrice = element.querySelector('.retail_price').innerHTML;
+            const inventorQquantity = element.querySelector('.inventory_quantity').innerHTML;
+
+            const quantity = 1
+            itemlist.push({ productName ,series, retailPrice, quantity });
+
+            const totalElement = document.getElementById('total');
+            totalElement.textContent = calculateTotalPrice() + '$'
+
+
+            const newItemHTML = `
+        <div class="relative px-2 rounded my-2 py-3 bg-gray-100">
+                    <div class="block">
+                        <div class="flex justify-between items-center cursor-pointer">
+                            <div class="flex gap-4 items-center">
+                                <div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </div>
+                                {{!-- image --}}
+                                <div>
+                                    <img class="h-10"
+                                        src=${linkImg} />
+                                </div>
+                                {{!-- Name --}}
+                                <span>${productName}</span>
+                                <span class="series" style="display: none;">${series}</span>
+                            </div>
+
+                            <div class="flex gap-4">
+                                {{!-- price --}}
+                                <span class="price">${retailPrice}$</span>
+                                <input type="number" class="border border-gray-300 w-16" min="1"  max=${inventorQquantity}"\ value = "1" oninput="updateQuantity(this)" />
+                                {{!-- Delete product --}}
+                                <div class="text-gray-500">
+                                    <i class="fa-solid fa-circle-xmark deletethisproduct" onclick="deleteP(this)"></i>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+        `
+            const searchResultDiv = document.getElementById('item')
+            searchResultDiv.insertAdjacentHTML('afterend', newItemHTML)
+        }
+
+    }
+
+    function deleteP(icon) {
+        const parentDiv = icon.closest('.relative');
+        var series = icon.closest('.relative').querySelector('.series').innerHTML;
+        parentDiv.remove();
+
+
+        var index = -1
+        for (let i = 0; i < itemlist.length; i++) {
+
+            if (itemlist[i].series == series) {
+                index = i
+            }
+        }
+        if (index != -1) {
+            itemlist.splice(index, 1)
+            document.getElementById('total').textContent = calculateTotalPrice()
+        }
+    }
+
+
+
+
+    document.getElementById('payButton').addEventListener('click', function createPDFFileAndDownload() {
+        const customerName = document.getElementById('customername').innerHTML
+        const sdt = document.getElementById('sdt').value
+        const total = calculateTotalPrice()
+
+        if (customerName && sdt)
+            fetch('/pos/bill', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ itemlist: itemlist, customerName: customerName, sdt: sdt, total: total })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    let product = [];
+                    itemlist.forEach(item => {
+                        let i = {
+                            "quantity": item.quantity,
+                            "description": item.productName,
+                            "tax-rate": 0,
+                            "price": item.retailPrice,
+                        }
+                        product.push(i)
+                    })
+                    var data = {
+                        "customize": {
+                        },
+                        "images": {
+                            "logo": "https://upload.wikimedia.org/wikipedia/vi/1/1b/T%C4%90T_logo.png",
+                            "background": ""
+                        },
+                        "sender": {
+                            "company": "CellPhones Double Duy Huy",
+                            "address": "19 Nguyen Huu Tho,Tan Phong",
+                            "zip": "Quan 7",
+                            "city": "Tp.HCM",
+                            "country": "VIET NAM"
+                        },
+                        "client": {
+                            "company": `${customerName}`,
+                            "address": `Số điện thoại: ${sdt}`,
+                            "zip": "",
+                            "city": "",
+                            "country": "VIET NAM"
+                        },
+                        "information": {
+                            "date": Date().now,
+                        },
+                        "products": product,
+                        "bottom-notice": "Kindly pay your invoice within 15 days.",
+                        "settings": {
+                            "currency": "USD",
+                        },
+                        "translate": {
+
+                        },
+                    };
+
+                    easyinvoice.createInvoice(data, function (result) {
+                        easyinvoice.download('myInvoice.pdf', result.pdf);
+                    });
+                })
+                .catch(error => {
+                    console.error('Lỗi kiểm tra dữ liệu:', error)
+                })
+        else {
+            alert('Vui lòng nhập đầy đủ thông tin');
+        }
+    });
+
+
+    document.getElementById('searchsdt').addEventListener('click', function () {
+        const phoneNumber = document.getElementById('sdt').value;
+        fetch('/customer/findcustomer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ phoneNumber: phoneNumber })
+        })
+            .then(response => response.json())
+            .then(data => {
+                const searchResultDiv = document.getElementById('customername')
+
+                if (data.customer_name) {
+                    searchResultDiv.innerHTML = "Khách hàng " + data.customer_name
+                } else {
+                    window.location.href = 'admin_customer/customer_add';
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi kiểm tra dữ liệu:', error)
+            })
+
+    })
+</script>

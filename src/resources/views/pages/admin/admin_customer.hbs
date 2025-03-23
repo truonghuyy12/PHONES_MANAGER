@@ -1,0 +1,86 @@
+<div id = "employees" class = "flex flex-col px-5 rounded-lg">    
+    <h1 id = "customers" class="text-3xl uppercase text-gray-700 pt-2 pb-2 font-bold text-center">Customer</h1>
+    <div class="bg-white rounded-lg">   
+            <div class=" container mx-auto py-4">
+            <form class=" flex group relative" action="/admin_customer/customer_search" method="get">
+                        <input id="customer_search" name="customer_search" class="focus:ring-2 ml-2 focus:ring-gray-500 focus:outline-none appearance-none w-10/12 text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2  pl-10 pr-4 ring-1 ring-slate-200 shadow-sm truncate" type="text" aria-label="Filter projects" placeholder="Search ...">
+                        <button type="submit" class="font-bold bg-gray-200 w-1/12 mx-2 rounded-lg">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        <button onclick="location.href='/admin_customer/customer_seacrh_{{customer._id}}'" type="button" class=" font-bold bg-gray-200 text-green-600 w-1/12 mx-2 rounded-lg">
+                                 All
+                        </button>
+                        <button onclick="location.href='/admin_customer/customer_add'" type="button" class="bg-green-200 w-2/12 mx-2 rounded-lg font-bold">
+                                <i class="fa-solid fa-add"></i>
+                        </button>
+            </form>
+            </div>
+            <div class="relative shadow-md sm:rounded-lg h-full overflow-y-auto dark:bg-white " style="height:500px;">
+            <table class="w-full h-full text-left rtl:text-right">
+                        <thead class=" text-xm text-gray-700  uppercase bg-gray-200 dark:bg-gray-700 ">
+                        <tr>
+                        <th scope="col" class="p-4">
+                                    <div class="flex items-center">
+                                    <input id="select_all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                                    </div>
+                        </th>
+                        <th scope="col" class=" py-3">
+                                    ID
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                                    Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                                    Email
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                                    Phone
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                                    Account Created
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                                    Action
+                        </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each customers}}
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td><input type="checkbox"></td>
+                                    <td>{{sum @index 1}}</td>
+                                    <td>                  
+                                        <a href="/admin_customer/customer_detail/{{this.customer_name}}" class="text-green-800 font-bold">
+                                                {{this.customer_name}}
+                                        </a>
+                                    </td>
+                                    <td>{{this.customer_email}}</td>
+                                    <td>{{this.customer_phone}}</td>
+                                    <td>{{this.createdAt}}</td>
+                                    <td class="flex gap-2">
+                                        <form method="post" action="/admin_customer/customer_delete/{{this._id}}?_method=DELETE">
+                                                <button type="submit" class="bg-gray-200 text-red-500 w-full mx-3 rounded-lg" data-toggle="modal" data-target="#deleteModal">
+                                                        <i class="fa-regular fa-trash-can"></i>
+                                                </button>
+                                        </form>
+                                        <button onclick="location.href='/admin_customer/customer_{{this._id}}'" type="button" class="bg-gray-200 text-yellow-500 w-full mx-2 rounded-lg">
+                                                <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                    </td>
+                        </tr>
+                        {{/each}}
+                        </tbody>
+            </table>
+            </div>
+    </div>  
+</div>
+
+<script>
+        document.getElementById('select_all').addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        for (const checkbox of checkboxes) {
+        checkbox.checked = this.checked;
+        }
+        });
+</script>

@@ -1,0 +1,356 @@
+
+
+<div id = "employees" class = "flex flex-col px-5 rounded-lg">
+        {{!-- <div  class = "bg-yellow-200 rounded-b-lg" style="display: flex;justify-content: space-around;  align-items: center; position: sticky; top: 0; z-index: 100;" > 
+                <a href="#employees" class="px-10 font-bold text-3xl bg-yellow-200 rounded-lg" >Employees</a>
+                <a href="#productlist" class="px-10 font-bold text-3xl bg-yellow-200 rounded-lg"   >Product List</a>
+                <a href="#customers" class="px-10 font-bold text-3xl bg-yellow-200 rounded-lg" >Customers</a>
+                <a href="#invoices" class="px-10 font-bold text-3xl bg-yellow-200 rounded-lg" >Invoices</a>
+        </div> --}}
+
+    <h1  class="text-3xl uppercase text-gray-700 pt-10 pb-2  font-bold text-center">Employees</h1>
+    <div class="bg-white rounded-lg">
+            <div class=" container mx-auto pb-4">
+                        <form class=" flex group relative py-4">
+                                    <svg width="20" height="20" fill="currentColor" class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-gray-500" aria-hidden="true">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+                                    </svg>
+                                    <input class="focus:ring-2 focus:ring-gray-500 focus:outline-none appearance-none w-10/12 text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2  pl-10 pr-4 ring-1 ring-slate-200 shadow-sm truncate" type="text" aria-label="Filter projects" placeholder="Search ...">
+                                    <button onclick="location.href='/admin/employee_add'" type="button" class="bg-green-200 w-2/12 mx-2 rounded-lg"><i class="fa-solid fa-add"></i></button>
+
+                        </form>
+            </div>
+            <div class="relative shadow-md sm:rounded-lg  overflow-auto" style="max-height: 850px; ">
+                        <table class="w-full text-left">
+                                    <thead class="text-xm text-gray-700  uppercase bg-gray-200 dark:bg-gray-700 ">
+                                    <tr>
+                                    <tr>
+                                    <th scope="col" class="p-4">
+                                                <div class="flex items-center">
+                                                <input id="select_all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                                                </div>
+                                    </th>
+                                    <th scope="col" class="py-3">
+                                                ID
+                                    </th>
+                                    <th scope="col" class="py-3">
+                                                Name
+                                    </th>
+                                    <th scope="col" class="py-3">
+                                                Email
+                                    </th>
+                                    <th scope="col" class="py-3">
+                                                Phone
+                                    </th>
+                                    <th scope="col" class="py-3">
+                                                Hire Date
+                                    </th>
+                                    <th scope="col" class="py-3">
+                                                Status
+                                    </th>
+                                    <th scope="col" class=" text-center py-3">
+                                                Avatar
+                                    </th>
+                                    <th scope="col" class="py-3">
+                                                Action
+                                    </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody >
+                                    {{#each employees}}
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <td><input type="checkbox"></td>
+                                                <td>{{sum @index 1}}</td>
+                                                <td>{{this.name}}</td>
+                                                <td>{{this.phone}}</td>
+                                                <td>{{this.email}}</td>
+                                                <td>{{this.hire_date}}</td>
+                                                <td>{{this.status}}</td>
+                                                <td><img class=" object h-48 w-40" src={{this.avatar}}></td>
+                                                <td class="flex gap-2">
+                                                <form action="/admin/delete-employee-{{this._id}}" method="post">
+                                                        <button class="bg-gray-200 text-red-500 py-2 px-4 rounded flex items-center hover:bg-gray-300">
+                                                                <i class="fa-regular fa-trash-can"></i>
+                                                        </button>
+                                                </form>
+                                                <button class="bg-gray-200 text-green-500 py-2 px-4 rounded flex items-center hover:bg-gray-300">
+                                                            <i class="fa-solid fa-pen"></i>
+                                                </button>
+                                                </td>
+                                    </tr>
+                                    {{/each}}
+                                    </tbody>
+                        </table>
+            </div>
+    </div>
+    <h1 id="productlist" class="text-3xl uppercase text-gray-700 pt-16 pb-2 font-bold text-center">Product List</h1>
+    <div  class="bg-white rounded-lg">    
+            <div class=" container mx-auto py-4">
+            <form class=" flex group relative">
+                        <svg width="20" height="20" fill="currentColor" class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-gray-500" aria-hidden="true">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+                        </svg>
+                        <input class="focus:ring-2 focus:ring-gray-500 focus:outline-none appearance-none w-10/12 text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2  pl-10 pr-4 ring-1 ring-slate-200 shadow-sm truncate" type="text" aria-label="Filter projects" placeholder="Search ...">
+                        <button onclick="location.href='/admin/product_add'" type="button" class="bg-green-200 w-2/12 mx-2 rounded-lg"><i class="fa-solid fa-add"></i></button>
+            </form>
+            </div>
+            <div class="relative shadow-md sm:rounded-lg overflow-auto dark:bg-white " style="max-height: 850px;">
+            <table class=" text-left rtl:text-right">
+                        <thead class="text-xm text-gray-700 uppercase bg-gray-200 dark:bg-gray-700">
+                        <tr >
+                        <th scope="col" class="p-4" >
+                                    <div class="flex items-center">
+                                    <input id="select_all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                                    </div>
+                        </th>
+                        <th scope="col" class=" px-2" >
+                                    ID
+                        </th>
+                        <th scope="col" class="py-3 px-2" >
+                                    Name
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Series
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Corlor
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Image
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Quantity
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Link
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Barcode
+                        </th>
+                        
+                        <th scope="col" class="py-3 px-2">
+                                    Import Price
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Retail Price
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Release Date
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Action
+                        </th>
+                        
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each products}}
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td><input type="checkbox"></td>
+                                    <td>{{sum @index 1}}</td>
+                                    <td>
+                                        <a href="/admin/product_detail/{{this.product_name}}" class="text-green-800 font-bold">
+                                                {{this.product_name}}
+                                        </a>
+                                    </td>
+                                    <td>{{this.series}}</td>
+                                    <td>
+                                    {{#each this.colors}}
+                                    {{this}},
+                                    {{/each}}
+                                    </td>
+                                    <td><img class=" object h-48 w-30" src={{this.link_image}}></td>
+                                    <td>{{this.inventory_quantity}}</td>
+                                    <td>{{this.link_product}}</td>
+                                    <td>{{this.barcode}}</td>
+                                    <td>
+                                    {{#each this.import_price}}
+                                    {{this}},
+                                    {{/each}}
+                                    </td>
+                                    <td>
+                                    {{#each this.retail_price}}
+                                    {{this}},
+                                    {{/each}}
+                                    </td>
+                                    <td>{{this.created_at}}</td>
+                                    <td class="flex gap-2">
+                                    <button onclick="location.href='/admin/product_delete'" type="button" class="bg-gray-200 text-red-500 py-2 px-4 rounded flex items-center hover:bg-gray-300">
+                                        <i class="fa-regular fa-trash-can"></i>                                    
+                                    </button>
+                                    <button onclick="location.href='/admin/product_update'" type="button" class="bg-gray-200 text-green-500 py-2 px-4 rounded flex items-center hover:bg-gray-300">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                    </td>
+                        </tr>
+                        {{/each}}
+                        </tbody>
+            </table>
+            </div>
+    </div>
+    <h1 id = "customers" class="text-3xl uppercase text-gray-700 pt-16 pb-2 font-bold text-center">Customer</h1>
+    <div class="bg-white rounded-lg">   
+            <div class=" container mx-auto py-4">
+            <form class=" flex group relative" action="/admin/customer_search" method="get">
+                        {{!-- <svg width="20" height="20" fill="currentColor" class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-gray-500" aria-hidden="true">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+                        </svg> --}}
+                        <input id="customer_search" name="customer_search" class="focus:ring-2 ml-2 focus:ring-gray-500 focus:outline-none appearance-none w-10/12 text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2  pl-10 pr-4 ring-1 ring-slate-200 shadow-sm truncate" type="text" aria-label="Filter projects" placeholder="Search ...">
+                        <button type="submit" class="font-bold bg-gray-200 w-1/12 mx-2 rounded-lg">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        <button onclick="location.href='/admin/customer_seacrh_{{customer._id}}'" type="button" class=" font-bold bg-gray-200 text-green-600 w-1/12 mx-2 rounded-lg">
+                                 All
+                        </button>
+                        <button onclick="location.href='/admin/customer_add'" type="button" class="bg-green-200 w-2/12 mx-2 rounded-lg font-bold">
+                                <i class="fa-solid fa-add"></i>
+                        </button>
+            </form>
+            </div>
+            <div class="relative shadow-md sm:rounded-lg  overflow-y-auto dark:bg-white " style="max-height: 850px;">
+            <table class="w-full text-left rtl:text-right">
+                        <thead class=" text-xm text-gray-700  uppercase bg-gray-200 dark:bg-gray-700 ">
+                        <tr>
+                        <th scope="col" class="p-4">
+                                    <div class="flex items-center">
+                                    <input id="select_all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                                    </div>
+                        </th>
+                        <th scope="col" class=" py-3">
+                                    ID
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                                    Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                                    Email
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                                    Phone
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                                    Account Created
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                                    Action
+                        </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each customers}}
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td><input type="checkbox"></td>
+                                    <td>{{sum @index 1}}</td>
+                                    <td>                  
+                                        <a href="/admin/customer_detail/{{this.customer_name}}" class="text-green-800 font-bold">
+                                                {{this.customer_name}}
+                                        </a>
+                                    </td>
+                                    <td>{{this.customer_email}}</td>
+                                    <td>{{this.customer_phone}}</td>
+                                    <td>{{this.createdAt}}</td>
+                                    <td class="flex gap-2">
+                                        <form method="post" action="/admin/customer_delete/{{this._id}}?_method=DELETE">
+                                                <button type="submit" class="bg-gray-200 text-red-500 w-full mx-3 rounded-lg" data-toggle="modal" data-target="#deleteModal">
+                                                        <i class="fa-regular fa-trash-can"></i>
+                                                </button>
+                                        </form>
+                                        <button onclick="location.href='/admin/customer_{{this._id}}'" type="button" class="bg-gray-200 text-yellow-500 w-full mx-2 rounded-lg">
+                                                <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                    </td>
+                        </tr>
+                        {{/each}}
+                        </tbody>
+            </table>
+            </div>
+    </div>  
+    <h1 id = "invoices" class="text-3xl uppercase text-gray-700 pt-16 pb-2 font-bold text-center">Invoice</h1>
+    <div class="bg-white rounded-lg">       
+            <div class=" container mx-auto py-4">
+            <form class=" flex group relative">
+                        <svg width="20" height="20" fill="currentColor" class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-gray-500" aria-hidden="true">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+                        </svg>
+                        <input class="focus:ring-2 focus:ring-gray-500 focus:outline-none appearance-none w-10/12 text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2  pl-10 pr-4 ring-1 ring-slate-200 shadow-sm truncate" type="text" aria-label="Filter projects" placeholder="Search ...">
+                        <button onclick="location.href='/admin/invoice_add'" type="button" class="bg-green-200 w-2/12 mx-2 rounded-lg">
+                                <i class="fa-solid fa-add"></i>
+                        </button>
+
+            </form>
+            </div>
+            <div class="relative shadow-md sm:rounded-lg dark:bg-white h-100" style="max-height: 850px; ">
+            <table class="w-full text-left">
+                        <thead class="text-xm text-gray-700  uppercase bg-gray-200 dark:bg-gray-700 ">
+                        <tr>
+                        <tr>
+                        <th scope="col" class="p-4">
+                                    <div class="flex items-center">
+                                    <input id="select_all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                                    </div>
+                        </th>
+                        <th scope="col" class="py-3">
+                                    ID
+                        </th>
+                        <th scope="col" class="py-3">
+                                    Name
+                        </th>
+                        <th scope="col" class="py-3">
+                                    Email
+                        </th>
+                        <th scope="col" class="py-3">
+                                    Phone
+                        </th>
+                        <th scope="col" class="py-3">
+                                    Hire Date
+                        </th>
+                        <th scope="col" class="py-3">
+                                    Status
+                        </th>
+                        <th scope="col" class=" text-center py-3">
+                                    Avatar
+                        </th>
+                        <th scope="col" class="py-3">
+                                    Action
+                        </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each invoices}}
+                        <tr class= "bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 overflow-scroll">
+                                    <td><input type="checkbox"></td>
+                                    <td>{{sum @index 1}}</td>
+                                    <td>{{this.employee_name}}</td>
+                                    <td>{{this.employee_phone}}</td>
+                                    <td>{{this.employee_email}}</td>
+                                    <td>{{this.hire_date}}</td>
+                                    <td>{{this.account_status}}</td>
+                                    <td><img class=" object h-48 w-40" src={{this.profile_picture}}></td>
+                                    <td class="flex gap-2">
+                                    <button class="bg-gray-200 text-red-500 py-2 px-4 rounded flex items-center hover:bg-gray-300">
+                                                <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                    <button class="bg-gray-200 text-green-500 py-2 px-4 rounded flex items-center hover:bg-gray-300">
+                                                <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                    </td>
+                        </tr>
+                        {{/each}}
+                        </tbody>
+            </table>
+            </div>
+     </div>      
+</div>
+
+<script>
+        document.getElementById('select_all').addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        for (const checkbox of checkboxes) {
+        checkbox.checked = this.checked;
+        }
+        });
+</script>

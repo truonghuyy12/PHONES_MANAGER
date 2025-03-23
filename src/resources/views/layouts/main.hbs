@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/tailwind.css">
+    <link rel="stylesheet" href="/fontawesome/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <title>SellPhone</title>
+</head>
+<body>
+    <div class="app bg-blue-200 h-screen cursor-default">
+        <div class="flex h-full">
+
+            <div class="w-full h-screen flex flex-col">
+                {{> header}}
+                <div class="flex-auto p-2 overflow-y-scroll relative h-12">
+                    {{{body}}} 
+                </div>
+            </div>
+
+            {{> categories}}
+        </div>
+
+
+    </div>
+    <script>
+        const fullscreenButton = document.getElementById('fullscreenButton');
+        fullscreenButton.addEventListener('click', function() {
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch((err) => {
+                    console.error(`Error attempting to exit full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.documentElement.requestFullscreen().catch((err) => {
+                    console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

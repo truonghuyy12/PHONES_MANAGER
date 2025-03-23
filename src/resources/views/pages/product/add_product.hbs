@@ -1,0 +1,86 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .form-container {
+        width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+        display: grid;
+        grid-gap: 10px;
+    }
+
+    label {
+        display: block;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="url"] {
+        width: 100%;
+        padding: 8px;
+        margin: 6px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<body>
+
+    {{#if flag}}
+    <script>
+        function showAlert() {
+            alert("Thêm thành công");
+        }
+    </script>
+    {{/if}}
+    <div class="form-container">
+        <form action="/productlist/add" method="post">
+            <label for="product_name">Product Name:</label>
+            <input type="text" id="product_name" name="product_name"><br>
+
+            <label for="series">Series:</label>
+            <input type="text" id="series" name="series"><br>
+
+            <label for="colors">Colors:</label>
+            <input type="text" id="colors" name="colors"><br>
+
+            <label for="inventory_quantity">Inventory Quantity:</label>
+            <input type="number" id="inventory_quantity" name="inventory_quantity"><br>
+
+            <label for="link_image">Link Image:</label>
+            <input type="url" id="link_image" name="link_image"><br>
+
+            <label for="barcode">Barcode:</label>
+            <input type="text" id="barcode" name="barcode"><br>
+
+            <label for="import_price">Import Price:</label>
+            <input type="number" id="import_price" name="import_price"><br>
+
+            <label for="retail_price">Retail Price:</label>
+            <input type="number" id="retail_price" name="retail_price"><br>
+
+            <input type="submit" value="Lưu sản phẩm">
+        </form>
+    </div>
+</body>

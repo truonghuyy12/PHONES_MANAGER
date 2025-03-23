@@ -1,0 +1,198 @@
+{{!-- In-Out Button --}}
+<button id="toggleButton" class="absolute top-1/2 right-52 rounded-md p-3 bg-white hover:bg-blue-500 hover:shadow-md"><i class="fa-solid fa-arrow-right"></i></button>
+<div id="sidebar" class="w-64 bg-white h-screen pt-2 text-base pl-2 flex flex-col">
+    {{!-- Logo --}}
+    <div class="sticky">
+        <a href="/">
+            <img 
+            class="w-20 rounded m-auto" 
+            src="/images/logo.png"/> 
+        </a>         
+    </div>
+
+    {{!-- Category --}}
+    <div class="overflow-scroll overflow-x-hidden flex-1">
+        {{!-- Sale --}}
+        <div class="border-b mb-3">
+            <h6 class="font-semibold">Doanh thu</h6>
+            <ul>
+                {{!-- POS --}}
+                <li class="pl-3 py-2 font-normal cursor-pointer rounded-sm hover:bg-blue-500 hover:text-white hover:shadow-md">
+                    <a href="/pos" class="flex">
+                        <div class="w-1/5 text-xl">
+                            <i class="fa-solid fa-print"></i>
+                        </div>
+                        <span>In hóa đơn</span>
+                    </a>
+                </li>
+                
+                {{!-- Invoices --}}
+                <li class="pl-3 py-2 font-normal cursor-pointer rounded-sm hover:bg-blue-500 hover:text-white hover:shadow-md">
+                    <a href="/invoice" class="flex">
+                        <div class="w-1/5 text-xl">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <span>Hóa đơn</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+        {{!-- Products --}}
+        <div class="border-b mb-3">
+            <h6 class="font-semibold">Sản phẩm</h6>
+
+            {{!-- Products --}}
+            <ul>
+                <li class="pl-3 py-2 font-normal cursor-pointer rounded-sm hover:bg-blue-500 hover:text-white hover:shadow-md">
+                    <a href="/productlist" class="flex">
+                        <div class="w-1/5 text-xl">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <span>Sản phẩm</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        {{!-- Peoples --}}
+        <div class="border-b mb-3">
+            <h6 class="font-semibold">Con người</h6>
+
+            <ul>
+                {{!-- Customers --}}
+                <li class="pl-3 py-2 font-normal cursor-pointer rounded-sm hover:bg-blue-500 hover:text-white hover:shadow-md">
+                    <a href="/customer" class="flex">
+                        <div class="w-1/5 text-xl">
+                            <i class="fa-solid fa-people-line"></i>
+                        </div>
+                        <span>Khách hàng</span>
+                    </a>
+                </li>
+
+                {{!-- Admin Manage --}}
+                {{!-- <li class="pl-3 py-2 font-normal cursor-pointer rounded-sm hover:bg-blue-500 hover:text-white hover:shadow-md">
+                    <a href="/admin" class="flex">
+                        <div class="w-1/5 text-xl">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <span>Admin Manage</span>
+                    </a>
+                </li> --}}
+                <li class="pl-3 py-2 font-normal cursor-pointer rounded-sm relative">
+                    <a href="#" class="flex items-center" onclick="toggleAdminMenu(event)">
+                        <div class="w-1/5 text-xl">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <span>Quản lý Admin</span>
+                    </a>
+                    
+                    <!-- Drop-down content -->
+                    <ul id="adminMenu" class="absolute hidden bg-white border rounded-sm mt-2 space-y-1">
+                        <!-- Employee -->
+                        <li class="pl-3 py-2 pr-8 hover:bg-blue-500 hover:text-white hover:shadow-md">
+                            <a href="/admin_employee">Nhân viên</a>
+                        </li>
+                        
+                        <!-- Customer -->
+                        <li class="pl-3 py-2 hover:bg-blue-500 hover:text-white hover:shadow-md">
+                            <a href="/admin_customer">Khách hàng</a>
+                        </li>
+                        
+                        <!-- Invoice -->
+                        <li class="pl-3 py-2 hover:bg-blue-500 hover:text-white hover:shadow-md">
+                            <a href="/admin_invoice">Hóa đơn</a>
+                        </li>
+                        
+                        <!-- Product -->
+                        <li class="pl-3 py-2 hover:bg-blue-500 hover:text-white hover:shadow-md">
+                            <a href="/admin_product">Sản phẩm</a>
+                        </li>
+                    </ul>
+                </li>
+
+                {{!-- Employees --}}
+                <li class="pl-3 py-2 font-normal cursor-pointer rounded-sm hover:bg-blue-500 hover:text-white hover:shadow-md">
+                    <a href="/employee" class="flex">
+                        <div class="w-1/5 text-xl">
+                            <i class="fa-solid fa-user-tag"></i>
+                        </div>
+                        <span>Nhân viên</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        {{!-- Reports --}}
+        <div class="border-b mb-3">
+            <h6 class="font-semibold">Mục báo cáo</h6>
+            <ul>
+                {{!-- Sales report --}}
+                <li class="pl-3 py-2 font-normal cursor-pointer rounded-sm hover:bg-blue-500 hover:text-white hover:shadow-md">
+                    <a href="/sale_report" class="flex">
+                        <div class="w-1/5 text-xl">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <span>Báo cáo thu chi</span>
+                    </a>
+                </li>
+
+                {{!-- Invoice Report --}}
+                <li class="pl-3 py-2 font-normal cursor-pointer rounded-sm hover:bg-blue-500 hover:text-white hover:shadow-md">
+                    <a href="/invoice_report" class="flex">
+                        <div class="w-1/5 text-xl">
+                            <i class="fa-solid fa-scroll"></i>
+                        </div>
+                        <span>Báo cáo hóa đơn</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+
+
+    </div>
+
+
+    {{!-- Logout --}}
+    <div class="border-b mb-3">
+            <h6 class="font-semibold">Đăng xuất</h6>
+            <ul>
+                {{!-- Logout --}}
+                <li class="px-3 py-2 font-normal cursor-pointer rounded-sm hover:bg-blue-500 hover:text-white hover:shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-1/5 text-xl rounded-full overflow-hidden">
+                                <img src="images/user_sample.png"/>
+                            </div>
+                            <span>{{name}}</span>
+                        </div>
+                        <a href="/logout" class="w-1/5 text-xl">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+    </div>     
+</div> 
+<script>
+    function toggleAdminMenu(event) {
+        event.preventDefault();
+        var adminMenu = document.getElementById("adminMenu");
+        adminMenu.classList.toggle("hidden");
+    }
+
+    const toggleButton = document.getElementById("toggleButton");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleButton.addEventListener("click", function() {
+        sidebar.classList.toggle("hidden");
+        toggleButton.classList.toggle("transform");
+        toggleButton.classList.toggle("rotate-180");
+        toggleButton.classList.toggle("right-2");
+        toggleButton.classList.toggle("right-52");
+        toggleButton.classList.toggle("p-5");
+        toggleButton.classList.toggle("p-3");
+    });
+</script>

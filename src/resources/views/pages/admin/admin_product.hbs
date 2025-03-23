@@ -1,0 +1,116 @@
+<h1 id="productlist" class="text-3xl uppercase text-gray-700 pt-2 pb-2 font-bold text-center">Product List</h1>
+    <div  class="bg-white rounded-lg">    
+            <div class=" container mx-auto py-4">
+            <form class=" flex group relative">
+                        <svg width="20" height="20" fill="currentColor" class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-gray-500" aria-hidden="true">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+                        </svg>
+                        <input class="focus:ring-2 focus:ring-gray-500 focus:outline-none appearance-none w-10/12 text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2  pl-10 pr-4 ring-1 ring-slate-200 shadow-sm truncate" type="text" aria-label="Filter projects" placeholder="Search ...">
+                        <button onclick="location.href='/admin/product_add'" type="button" class="bg-green-200 w-2/12 mx-2 rounded-lg"><i class="fa-solid fa-add"></i></button>
+            </form>
+            </div>
+            <div class="relative  shadow-md sm:rounded-lg overflow-auto dark:bg-white "  style="height:500px;" >
+            <table class=" text-left rtl:text-right">
+                        <thead class="text-xm text-gray-700 uppercase bg-gray-200 dark:bg-gray-700">
+                        <tr >
+                        <th scope="col" class="p-4" >
+                                    <div class="flex items-center">
+                                    <input id="select_all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                                    </div>
+                        </th>
+                        <th scope="col" class=" px-2" >
+                                    ID
+                        </th>
+                        <th scope="col" class="py-3 px-2" >
+                                    Name
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Series
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Corlor
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Image
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Quantity
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Link
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Barcode
+                        </th>
+                        
+                        <th scope="col" class="py-3 px-2">
+                                    Import Price
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Retail Price
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Release Date
+                        </th>
+                        <th scope="col" class="py-3 px-2">
+                                    Action
+                        </th>
+                        
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each products}}
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td><input type="checkbox"></td>
+                                    <td>{{sum @index 1}}</td>
+                                    <td>
+                                        <a href="/admin/product_detail/{{this.product_name}}" class="text-green-800 font-bold">
+                                                {{this.product_name}}
+                                        </a>
+                                    </td>
+                                    <td>{{this.series}}</td>
+                                    <td>
+                                    {{#each this.colors}}
+                                    {{this}},
+                                    {{/each}}
+                                    </td>
+                                    <td><img class=" object h-48 w-30" src={{this.link_image}}></td>
+                                    <td>{{this.inventory_quantity}}</td>
+                                    <td>{{this.link_product}}</td>
+                                    <td>{{this.barcode}}</td>
+                                    <td>
+                                    {{#each this.import_price}}
+                                    {{this}},
+                                    {{/each}}
+                                    </td>
+                                    <td>
+                                    {{#each this.retail_price}}
+                                    {{this}},
+                                    {{/each}}
+                                    </td>
+                                    <td>{{this.created_at}}</td>
+                                    <td class="flex gap-2">
+                                    <button onclick="location.href='/admin/product_delete'" type="button" class="bg-gray-200 text-red-500 py-2 px-4 rounded flex items-center hover:bg-gray-300">
+                                        <i class="fa-regular fa-trash-can"></i>                                    
+                                    </button>
+                                    <button onclick="location.href='/admin/product_update'" type="button" class="bg-gray-200 text-green-500 py-2 px-4 rounded flex items-center hover:bg-gray-300">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                    </td>
+                        </tr>
+                        {{/each}}
+                        </tbody>
+            </table>
+            </div>
+    </div>
+
+ 
+<script>
+        document.getElementById('select_all').addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        for (const checkbox of checkboxes) {
+        checkbox.checked = this.checked;
+        }
+        });
+</script>

@@ -1,0 +1,23 @@
+<div class="flex justify-center mt-10">
+    <div class="card border-2 border-gray-400 rounded-lg bg-white shadow-md hover:shadow-lg">
+        {{#if data}}
+        <div class="flex justify-center border-b-2 border-gray-400"><img src={{data.link_image}}></div>
+        <div class="card-body p-4">
+            <h3 class="text-xl font-semibold mb-2">{{data.product_name}}</h3>
+            <p class="text-gray-600 mb-2">Retail price: {{data.retail_price}}</p>
+            <div class="flex flex-wrap mb-2">
+                <span class="text-primary mr-2">Colors:</span>
+                <span class="text-gray-600">{{data.colors}}</span>
+            </div>
+            <div class="flex flex-wrap mb-2">
+                <span class="text-primary mr-2">Series:</span>
+                <span class="text-gray-600">{{data.series}}</span>
+            </div>
+            <div class="flex flex-wrap">
+                <span class="text-primary mr-2">Date created:</span>
+                <span class="text-gray-600">{{data.createdAt}}</span>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>

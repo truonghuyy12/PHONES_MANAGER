@@ -1,0 +1,63 @@
+<div class="flex justify-between">
+    <div class="w-2/5 flex items-center pb-24">
+        {{!-- Content --}}
+        <div class="px-6 w-full">
+            {{!-- Logo --}}
+            <div class="mb-5">
+                <img 
+                    class="w-28"
+                    src="/images/logo.png"/>
+            </div>
+
+            {{!-- Title --}}
+            <div>
+                <h1 class="font-bold text-4xl mb-2">
+                    Login
+                </h1>
+                <span class="italic font-semibold text-sm">
+                    Please login to your account
+                </span>
+            </div>
+
+            {{!-- Form login --}}
+            <div>
+                <form method="post" action="/login" class="mt-5 w-full flex flex-col">
+                    <label class="text-sm mb-2 font-semibold" for="username">User name</label>
+                    <input 
+                        autofocus 
+                        class="text-sm w-full mb-2 rounded border bg-gray-100 border-gray-300 px-3 py-2 focus:outline-none focus:border-gray-400 active:outline-none" 
+                        id="username" 
+                        placeholder="User name" 
+                        type="text"
+                        name="username">
+                        <br>
+                     {{!--password  --}}
+                    <label class="text-sm mb-2 font-semibold" for="password">Password</label>
+                    <input 
+                        autofocus 
+                        class="text-sm w-full mb-2 rounded border bg-gray-100 border-gray-300 px-3 py-2 focus:outline-none focus:border-gray-400 active:outline-none" 
+                        id="password" 
+                        placeholder="Password" 
+                        type="password"
+                        name="password">
+
+                    {{!-- Submit --}}
+                    <button type="submit" class="text-base text-center opacity-80 hover:opacity-100 text-white py-3 mt-10 rounded font-medium" style="background-color: #FF9F43;">Log In</button>
+                </form>
+                <br>
+                {{!-- Show error --}}
+                {{#if error}}
+                    <p style="color: red;">{{error}}</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+    {{!-- Banner --}}
+    <div class="w-3/5 h-screen">
+        <img
+            src="/images/banner_login.png"
+            class="h-full w-full object-cover"    
+        />
+    </div>
+</div>

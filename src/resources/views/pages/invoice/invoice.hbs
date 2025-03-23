@@ -1,0 +1,117 @@
+<div class = "flex flex-col dark:bg-white px-5 pb-5 pt-1 rounded-lg">
+    <div class=" container mx-auto py-4">
+        <form class=" flex group relative">
+            <svg width="20" height="20" fill="currentColor" class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-gray-500" aria-hidden="true">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+            </svg>
+            <input id="search_product" class="focus:ring-2 focus:ring-gray-500 focus:outline-none appearance-none w-10/12 text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2  pl-10 pr-4 ring-1 ring-slate-200 shadow-sm truncate" type="text" aria-label="Filter projects" placeholder="Search ...">
+            <button class="bg-gray-200 ml-4 text-green-500 rounded w-2/12 items-center hover:bg-gray-300">
+                <i class="fa-solid fa-add"></i>
+            </button>
+        </form>
+    </div>
+    <div class="relative shadow-md sm:rounded-lg dark:bg-white h-100" style=" overflow-y: auto;">
+        <!-- product Table -->
+        <table class="min-w-full bg-white border border-gray-300 rounded-md">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="py-2 px-4 border-b">
+                        <input type="checkbox" id="select_all" class="form-checkbox h-5 w-5 text-blue-500">
+                    </th>
+                    <th class="py-2 px-4 border-b">ID</th>
+                    <th class="py-2 px-4 border-b">Name</th>
+                    <th class="py-2 px-4 border-b">Series</th>
+                    <th class="py-2 px-4 border-b">Image</th>
+                    <th class="py-2 px-4 border-b">Details</th>
+                    <th class="py-2 px-4 border-b">Action</th>
+                </tr>
+            </thead>
+            <tbody id="searchResults">
+
+                <!-- Product Row (Replace this block for each product) -->
+                {{#each data}}
+                    <tr>
+                        <td class="py-2 px-4 border-b">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500">
+                        </td>
+                        <td class="py-2 px-4 border-b">{{sum @index 1}}</td>
+                        <td class="py-2 px-4 border-b">{{this.product_name}}</td>
+                        <td class="py-2 px-4 border-b">{{this.series}}</td>
+                        <td class="py-2 px-4 border-b">
+                            <img src={{this.link_image}} alt="Product Image" class="h-16 object-cover rounded-md">
+                        </td>
+                        <td class="py-2 px-4 border-b">
+                            <a href="#" class="text-blue-500">View Details</a>
+                        </td>
+
+                        <td class="py-2 px-4 border-b">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded-md">ADD BILL</button>
+                        </td>
+                    </tr>
+                {{/each}}
+                <!-- End Product Row -->
+
+                <!-- Repeat the Product Row block for each product -->
+
+            </tbody>
+        </table>
+        <!-- End Product Table -->
+    </div>
+</div>
+
+<script>
+document.getElementById('select_all').addEventListener('change', function() {
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+for (const checkbox of checkboxes) {
+    checkbox.checked = this.checked;
+    }
+});
+let input = document.getElementById('search_product');
+        input.addEventListener('change', function() {
+            const searchResults = document.getElementById('searchResults');
+            searchResults.innerHTML = '';
+            let index=1;
+            let searchTerm = input.value;
+                fetch('/invoice/search', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ searchTerm: searchTerm })
+            })
+            .then(response => response.json())
+            .then(data => {
+                    const searchResults = document.getElementById('searchResults');
+                    searchResults.innerHTML = '';
+                    if(data.message){
+                        searchResults.innerText=data.message
+                    }else{
+                         data.forEach(product => {
+                            let Results=` <tr>
+                        <td class="py-2 px-4 border-b">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500">
+                        </td>
+                        <td class="py-2 px-4 border-b">${index}</td>
+                        <td class="py-2 px-4 border-b">${product.product_name}</td>
+                        <td class="py-2 px-4 border-b">${product.series}</td>
+                        <td class="py-2 px-4 border-b">
+                            <img src=${product.link_image} alt="Product Image" class="h-16 object-cover rounded-md">
+                        </td>
+                        <td class="py-2 px-4 border-b">
+                            <a href="#" class="text-blue-500">View Details</a>
+                        </td>
+
+                        <td class="py-2 px-4 border-b">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded-md">ADD BILL</button>
+                        </td>
+                    </tr>`
+                           searchResults.insertAdjacentHTML('beforeend', Results);
+                           index=index+1;
+                        });
+                    }
+                })
+
+            .catch(error => console.error('Error:', error));
+        ;
+    });
+</script>

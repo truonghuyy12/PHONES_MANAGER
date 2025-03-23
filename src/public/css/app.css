@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;1,100&display=swap');
+
+html{
+  font-family: 'Montserrat' , sans-serif !important;
+  scroll-behavior: smooth;
+}
+
+html *::-webkit-scrollbar {
+  border-radius: 0;
+  width: 5px;
+}
+html *::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(22, 24, 35, .06);
+}
+html *::-webkit-scrollbar-track {
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+th,td {
+  /* border: 1px solid #151414; */
+  text-align: left;
+  padding: 8px;
+}
+
+.category-custom-height{
+  height: calc(100vh - 80px - 127px);
+}
+
+#searchResults tr:hover{
+  background-color: rgb(243 244 246);
+}
+
+body{background:#dfe0e0}
+/* input[type="radio"],input[type="checkbox"]
+{
+  display: none;
+} */
+
+.input-checkbox label,.input-radio label {
+  width: auto;
+  height: 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease transform, 0.2s ease background-color, 0.2s ease box-shadow;
+  /* overflow: hidden; */
+  z-index: 1;
+  position: relative;
+  top: 0;
+  left: 0;
+  display: inline-block;
+}
+.input-checkbox label .text,.input-radio label .text {
+  display: inline-block;
+  width: max-content;
+  position: relative;
+  margin-left: 50px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.input-checkbox label:before,.input-radio label:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  margin: 0 0;
+  background-color: #fff;
+  border-radius: 10px;
+  transition: 0.2s ease width, 0.2s ease height;
+}
+label:hover:before
+{
+  width: 36px;
+  height: 36px;
+}
+input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + label:before
+{
+  width: 30px;
+  height: 30px;
+}
+
+input[type="radio"]:checked + label, input[type="radio"]:checked + label,input[type="checkbox"]:checked + label, input[type="checkbox"]:checked + label {
+  transform: translate(0);
+  opacity: 1;
+}
+
+/* image radio */
+.image label {float: left;margin-right: 1%;margin-bottom: 1%;}
+.image label:before {display: none;}
+.image label  {left: auto;top: 0px;z-index:9;}
+.input-radio.image label .text {margin: 0;text-align: center;justify-content: center;}
+.input-radio.image label #img-area {text-align: center;}
+.input-radio.image input[type="radio"]:checked  + label #img-area {border: 2px solid black; color: black; border-radius: 3px;}
+.image, .image {    background-color: #fff;}
+.input-radio.image.left-img label .text {width: 50%;height: 190px;float: left;background: #fff;color: gray;}
+.input-radio.image.left-img label select {width: 20%;border: 0;background: transparent;padding: 0 10px;text-align: center;display: none;float: left;}
+.left-img input[type="checkbox"]:checked + label select {display: block;}
+.input-radio.image.left-img label #img-area {display: flex;align-items: center;justify-content: end;}
+.image.left-img label { height: 190px; width:48%;}
+.custom-select select{
+border:0;
+height:20px;
+outline:none;
+}
+
+/**/
+.input-checkbox {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  position: relative;
+}
+body{background:#dfe0e0}
+.input-checkbox input[type="checkbox"]
+{
+  display: none;
+}
+
+.input-checkbox label {
+  width: auto;
+  height: 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease transform, 0.2s ease background-color, 0.2s ease box-shadow;
+  /* overflow: hidden; */
+  z-index: 1;
+  position: relative;
+  top: 0;
+  left: 0;
+  display: inline-block;
+}
+.input-checkbox label .text {
+  display: inline-block;
+  width: max-content;
+  position: relative;
+  margin-left: 50px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.input-checkbox label:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  margin: 0 0;
+  background-color: #fff;
+  border-radius: 10px;
+  transition: 0.2s ease width, 0.2s ease height;
+}
+
+
+.input-checkbox label:hover:before
+{
+  width: 36px;
+  height: 36px;
+}
+#_checkbox:checked + label:before
+{
+  width: 30px;
+  height: 30px;
+}
+
+
+/**/
+
+
+
